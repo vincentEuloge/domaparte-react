@@ -1,0 +1,44 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "react-app",
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:react-redux/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react-redux"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.ts?(x)"]
+    }
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+        "jsx": true
+    }
+  },
+  "settings": {
+    "import/resolver": {
+      "node": { "extensions": [".ts", ".tsx", ".json"] }
+    },
+    "import/extensions": [".ts", ".tsx"]
+  },
+  "rules": {
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "error",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "import/prefer-default-export": ["off"],
+    "import/extensions": ["error", "ignorePackages", { "ts": "never", "tsx": "never"}],
+    "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+    "react/prop-types": "off",
+    "prefer-const": ["error", {"destructuring": "all", "ignoreReadBeforeAssign": false}],
+    "no-param-reassign": ["error", { "props": false }]
+  }
+}

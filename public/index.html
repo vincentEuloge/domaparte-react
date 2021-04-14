@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="version" content="%REACT_APP_VERSION%-%NODE_ENV%" />
+    <meta name="description" content="welcome home"/>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Domaparte app</title>
+    <style>
+      html {
+        display: flex;
+        min-height: 100%;
+      }
+      body {
+        display: flex;
+        flex: 1;
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Source Sans Pro', 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      #root {
+        display: flex;
+        flex: 1;
+      }
+      #isIE {
+        font-size: 24px;
+        text-align: center;
+        padding-top: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <div id="portal-root"></div>
+    <div id="isIE"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+  <script>
+    // hacky way to detect that the browser is internet explorer
+    var isIE = /* @cc_on!@ */ false || !!document.documentMode
+
+    if (isIE){
+      var node1 = document.createElement("p");
+      var message1 = document.createTextNode("Welcome to Domaparte");
+      node1.appendChild(message1);
+
+      var node2 = document.createElement("p");
+      var message2 = document.createTextNode("We are sorry but this application does not support Internet Explorer. Please, open it in a modern browser as Chrome, Firefox or Edge");
+      node2.appendChild(message2);
+
+      var rootIsIE = document.getElementById("isIE");
+      rootIsIE.appendChild(node1);
+      rootIsIE.appendChild(node2);
+    }
+
+  </script>
+</html>
