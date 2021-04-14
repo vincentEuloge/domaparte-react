@@ -1,0 +1,69 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "1.5.1",
+    "dotenv-expand": "5.1.0",
+    "lodash-es": "4.17.21",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-redux": "7.2.3",
+    "react-scripts": "4.0.3",
+    "redux": "4.0.5",
+    "redux-saga": "1.1.3",
+    "styled-components": "5.2.3",
+    "typescript": "4.2.4"
+  },
+  "dependenciesComments": {
+    "@reduxjs/toolkit": "use jointly with redux and redux-saga, allows code factorisation for reducer (slice creation)",
+    "dotenv-expand": "to use environment variable inside .env (package.json version for exemple)",
+    "lodash-es": "some utils",
+    "react": "it's react!",
+    "react-dom": "it's react-dom!",
+    "react-redux": "use jointly with redux and redux-saga, make the link between react and redux",
+    "react-scripts": "the fundation",
+    "redux": "use jointly with react-redux and redux-saga, manage the state of the app",
+    "redux-saga": "use jointly with react-redux and redux, manage async call and api call",
+    "styled-components": "because we like css in js, every component use it",
+    "typescript": "this app is in typescript"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "4.17.4",
+    "@types/react": "17.0.3",
+    "@types/react-dom": "17.0.3",
+    "@types/react-redux": "7.1.16",
+    "@types/styled-components": "5.1.9",
+    "@typescript-eslint/eslint-plugin": "4.22.0",
+    "@typescript-eslint/parser": "4.22.0",
+    "babel-eslint": "10.1.0",
+    "eslint": "7.24.0",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-config-react-app": "6.0.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-react": "7.23.2",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "eslint-plugin-react-redux": "3.3.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "ie 11"
+    ]
+  }
+}
