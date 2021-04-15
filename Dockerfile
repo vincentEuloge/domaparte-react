@@ -41,5 +41,4 @@ COPY --from=pre-production /app/build/ .
 RUN npm install -g serve
 
 EXPOSE 5000
-
-CMD serve -s build
+ENTRYPOINT ["serve", '-s', "build"]
