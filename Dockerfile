@@ -30,8 +30,8 @@ COPY /public/ /app/public/
 COPY .env /app/.env
 RUN npm run build
 
-FROM nginx:1.19.7-alpine AS production
+FROM nginxinc/nginx-unprivileged:1.19 AS production
 
-COPY --from=pre-production /app/build /var/www
+WORKDIR /usr/share/nginx/html
+COPY --from=pre-production /app/build/ .
 COPY nginx.conf /etc/nginx/nginx.conf
-ENTRYPOINT ["nginx","-g","daemon off;"]
