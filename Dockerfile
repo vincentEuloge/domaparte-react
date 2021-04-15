@@ -24,14 +24,22 @@ COPY tsconfig.json /app/tsconfig.json
 
 CMD npm run lint
 
+
 FROM lint AS pre-production
 
 COPY /public/ /app/public/
 COPY .env /app/.env
 RUN npm run build
 
-FROM nginxinc/nginx-unprivileged:1.19 AS production
 
-WORKDIR /usr/share/nginx/html
+FROM node:14.15.3-alpine3.12 AS production
+
+RUN mkdir /app/
+WORKDIR /app/
 COPY --from=pre-production /app/build/ .
-COPY nginx.conf /etc/nginx/nginx.conf
+
+RUN npm install -g serve
+
+EXPOSE 5000
+
+CMD serve -s build
