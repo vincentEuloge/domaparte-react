@@ -15,7 +15,7 @@
 
 ## For production
   - docker build -f Dockerfile --target production -t domaparte/react:production .
-  - docker run --init --rm -p 80:80 domaparte/react:production
+  - docker run --init --rm -p 80:5000 domaparte/react:production
 
 ## For lint
   - docker build -f Dockerfile --target lint -t domaparte/react:lint .
