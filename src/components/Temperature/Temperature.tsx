@@ -15,8 +15,11 @@ export const Temperature: FC<PropsFromRedux> = ({
 
   return (
     <Container>
+      { temperatures.status === 'NotAsked' && <Text>Ask it</Text>}
       { temperatures.status === 'Loading' && <Text>Loading... Please wait</Text>}
+      { temperatures.status === 'None' && <Text>No temp, sorry</Text>}
       { temperatures.status === 'Some' && <LineChart data={temperatures.value} />}
+      { temperatures.status === 'Error' && <Text>{temperatures.value}</Text>}
     </Container>
   );
 };
