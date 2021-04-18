@@ -1,4 +1,4 @@
-const TEMPERATURES_API_URL = process.env.REACT_APP_TEMPERATURES_API_URL || process.env.TEMPERATURES_API_URL || '';
+const TEMPERATURES_API_URL = process.env.REACT_APP_TEMPERATURES_API_URL || '';
 
 export async function get(): Promise<unknown> {
   try {
