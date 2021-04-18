@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import type { FC } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import type { FC, ReactElement } from 'react';
 
+import { match } from '../../utils';
 import { Container, Text } from './Temperature.style';
 import { LineChart } from './components';
 import type { PropsFromRedux } from './index';
@@ -15,11 +16,16 @@ export const Temperature: FC<PropsFromRedux> = ({
 
   return (
     <Container>
-      { temperatures.status === 'NotAsked' && <Text>Ask it</Text>}
-      { temperatures.status === 'Loading' && <Text>Loading... Please wait</Text>}
-      { temperatures.status === 'None' && <Text>No temp, sorry</Text>}
-      { temperatures.status === 'Some' && <LineChart data={temperatures.value} />}
-      { temperatures.status === 'Error' && <Text>{temperatures.value}</Text>}
+      {useMemo(
+        () => match<typeof temperatures, ReactElement>({
+          NotAsked: () => <Text>Ask it</Text>,
+          Loading: () => <Text>Loading... Please wait</Text>,
+          None: () => <Text>No temperature, sorry</Text>,
+          Some: ({ value }) => <LineChart data={value} />,
+          Error: ({ value }) => <Text>{value}</Text>,
+        }),
+        [],
+      )(temperatures)}
     </Container>
   );
 };
