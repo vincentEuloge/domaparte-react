@@ -3,5 +3,5 @@ export {
 } from './interfaceApis';
 
 export type {
-  Temperature,
+  Temperatures,
 } from './interfaceApis';

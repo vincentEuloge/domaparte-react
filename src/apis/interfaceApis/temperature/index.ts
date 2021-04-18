@@ -1,2 +1,2 @@
 export { getTemperatures } from './temperature';
-export type { Temperature } from './temperature.type';
+export type { Temperatures } from './temperature.type';

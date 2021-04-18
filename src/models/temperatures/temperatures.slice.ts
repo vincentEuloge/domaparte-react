@@ -1,11 +1,11 @@
 import { createSagaSlice, asyncState } from '../../utils';
 import { getTemperatures } from '../../apis';
 import type { AsyncStateType } from '../../utils';
-import type { Temperature } from '../../apis';
+import type { Temperatures } from '../../apis';
 
 export const slice = createSagaSlice({
   name: 'temperatures',
-  initialState: asyncState.notAsked() as AsyncStateType<Temperature[]>,
+  initialState: asyncState.notAsked() as AsyncStateType<Temperatures>,
   sagas: {
     fetch: {
       strategy: 'takeLeading',
