@@ -95,7 +95,7 @@ export const LineChart: FC<Props> = ({
             },
             title: {
               display: true,
-              text: 'Temperatues',
+              text: 'Temperatures',
             },
           },
           scales: {
