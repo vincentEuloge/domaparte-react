@@ -1,6 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import {
-  Chart, BarController, BarElement, PointElement, CategoryScale, Title, LinearScale,
+  Chart,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  Title,
+  LinearScale,
+  Legend,
+  Tooltip,
 } from 'chart.js';
 import type { FC } from 'react';
 
@@ -10,43 +18,86 @@ interface Props {
   data: Extract<PropsFromRedux['temperatures'], {status:'Some'}>['value']
 }
 
-Chart.register(BarController, BarElement, PointElement, CategoryScale, LinearScale, Title);
+Chart.register(
+  LineController, LineElement, PointElement, CategoryScale, LinearScale, Title, Legend, Tooltip,
+);
 
 export const LineChart: FC<Props> = ({
   data,
 }) => {
-  const chartRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const width = useRef<number>();
+  const height = useRef<number>();
+  const gradient = useRef<CanvasGradient>();
 
   useEffect(() => {
-    if (chartRef && chartRef.current) {
-      // eslint-disable-next-line no-new
-      new Chart(chartRef.current, {
-        type: 'bar',
+    if (canvasRef && canvasRef.current) {
+      const chart = new Chart(canvasRef.current, {
+        type: 'line',
         data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: data.dates,
           datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-            ],
-            borderWidth: 1,
-          }],
+            data: data.kitchenTemps,
+            label: 'kitchen',
+            borderColor: '#F84CFF',
+          }, {
+            data: data.corridorTemps,
+            label: 'corridor',
+            borderColor: '#E0D934',
+          }, {
+            data: data.entranceTemps,
+            label: 'entrance',
+            borderColor: '#45F78C',
+          }, {
+            data: data.outsideTemps,
+            label: 'outside',
+            borderColor(context) {
+              const { chart: chartContext } = context;
+              const { ctx, chartArea } = chartContext;
+
+              if (!chartArea) {
+                // This case happens on initial chart load
+                return 'red';
+              }
+
+              const chartWidth = chartArea.right - chartArea.left;
+              const chartHeight = chartArea.bottom - chartArea.top;
+              if (
+                gradient.current === null
+                || gradient.current === undefined
+                || width.current !== chartWidth
+                || height.current !== chartHeight
+              ) {
+                // Create the gradient because this is either the first render
+                // or the size of the chart has changed
+                width.current = chartWidth;
+                height.current = chartHeight;
+                gradient.current = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                gradient.current.addColorStop(0, 'blue');
+                gradient.current.addColorStop(0.5, 'yellow');
+                gradient.current.addColorStop(1, 'red');
+              }
+
+              return gradient.current;
+            },
+          },
+          ],
         },
         options: {
+          responsive: true,
+          interaction: {
+            intersect: false,
+            mode: 'index',
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Temperatues',
+            },
+          },
           scales: {
             y: {
               beginAtZero: true,
@@ -54,10 +105,16 @@ export const LineChart: FC<Props> = ({
           },
         },
       });
+
+      return () => {
+        chart.destroy();
+      };
     }
-  }, [chartRef]);
+
+    return () => { /* do nothing */ };
+  }, [canvasRef, data]);
 
   return (
-    <canvas ref={chartRef} />
+    <canvas ref={canvasRef} />
   );
 };
