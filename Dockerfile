@@ -34,9 +34,6 @@ RUN npm run build
 
 FROM node:14.15.3-alpine3.12 AS production
 
-ARG REACT_APP_TEMPERATURES_API_URL
-ENV REACT_APP_TEMPERATURES_API_URL=$REACT_APP_TEMPERATURES_API_URL
-
 RUN mkdir /app/
 WORKDIR /app/
 COPY --from=pre-production /app/build/ .
