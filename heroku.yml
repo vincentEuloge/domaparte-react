@@ -1,6 +1,4 @@
 build:
-  config:
-    REACT_APP_TEMPERATURES_API_URL: ${{REACT_APP_TEMPERATURES_API_URL}}
   docker:
     web:
       dockerfile: Dockerfile
