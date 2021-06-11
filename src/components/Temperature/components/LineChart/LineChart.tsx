@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import type { FC } from 'react';
 
+import { Container, Text } from './LineChart.style';
 import type { PropsFromRedux } from '../../index';
 
 interface Props {
@@ -115,11 +116,11 @@ export const LineChart: FC<Props> = ({
   }, [canvasRef, data]);
 
   return (
-    <>
-      <div>{`last data date:${data.dates[data.dates.length - 1]}`}</div>
-      <div>{`${((data.outsideTemps[data.outsideTemps.length - 1] - data.corridorTemps[data.corridorTemps.length - 1]) < 0) ? 'Open' : 'Close'} the windows`}</div>
-      <div>{`gap between outside and inside: ${data.outsideTemps[data.outsideTemps.length - 1] - data.corridorTemps[data.corridorTemps.length - 1]}`}</div>
+    <Container>
+      <Text>{`last data date:${data.dates[data.dates.length - 1]}`}</Text>
+      <Text>{`${((data.outsideTemps[data.outsideTemps.length - 1] - data.corridorTemps[data.corridorTemps.length - 1]) < 0) ? 'Open' : 'Close'} the windows`}</Text>
+      <Text>{`gap between outside and inside: ${data.outsideTemps[data.outsideTemps.length - 1] - data.corridorTemps[data.corridorTemps.length - 1]}`}</Text>
       <canvas ref={canvasRef} />
-    </>
+    </Container>
   );
 };
