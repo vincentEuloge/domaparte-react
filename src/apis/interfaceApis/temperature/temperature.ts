@@ -6,6 +6,7 @@ export async function getTemperatures(): Promise<Temperatures> {
   const tempraturesRaw = await (herokuApi.get() as Promise<TemperatureRaw[]>);
 
   return tempraturesRaw
+    .slice(-1000)
     .reduce<Temperatures>(
       (acc, [date,, kitchenTemp,, entranceTemp,, outsideTemp,, corridorTemp]) => {
         // The date have to be normalize (we want paris timezoned date)
