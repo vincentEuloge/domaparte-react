@@ -115,6 +115,11 @@ export const LineChart: FC<Props> = ({
   }, [canvasRef, data]);
 
   return (
-    <canvas ref={canvasRef} />
+    <>
+      <div>{`last data date:${data.dates[data.dates.length - 1]}`}</div>
+      <div>{`${((data.outsideTemps[data.outsideTemps.length - 1] - data.corridorTemps[data.corridorTemps.length - 1]) < 0) ? 'Open' : 'Close'} the windows`}</div>
+      <div>{`gap between outside and inside: ${data.outsideTemps[data.outsideTemps.length - 1] - data.corridorTemps[data.corridorTemps.length - 1]}`}</div>
+      <canvas ref={canvasRef} />
+    </>
   );
 };
